@@ -1,0 +1,4 @@
+# EULA (End User License Agreement)
+# Ao definir esta propriedade como true, você está indicando seu acordo com o EULA do Minecraft.
+# https://account.mojang.com/documents/minecraft_eula
+eula=true 

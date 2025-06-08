@@ -1,0 +1,36 @@
+# Arquivos do servidor Minecraft
+world/
+logs/
+crash-reports/
+backups/
+mods/*.jar
+config/
+
+# Arquivos temporários
+*.tmp
+*.log
+*.lock
+
+# Arquivos do Docker
+.docker/
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos de configuração local
+*.local
+.env
+network-setup.md
+server.properties
+
+# Arquivos de backup
+*.tar.gz
+*.zip
+
+# Cache do Minecraft
+usercache.json
+usernamecache.json
+
+# Arquivos de sessão
+session.lock 

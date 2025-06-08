@@ -1,0 +1,28 @@
+services:
+  minecraft-cobblemon:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: minecraft-cobblemon-server
+    ports:
+      - "25566:25565"
+    volumes:
+      - ./world:/minecraft/world
+      - ./config:/minecraft/config
+      - ./logs:/minecraft/logs
+      - ./crash-reports:/minecraft/crash-reports
+      - ./mods:/minecraft/mods
+      - ./server.properties:/minecraft/server.properties
+    environment:
+      - JAVA_MEMORY=6G
+      - MINECRAFT_VERSION=1.20.1
+      - FORGE_VERSION=47.3.0
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    networks:
+      - minecraft-network
+
+networks:
+  minecraft-network:
+    driver: bridge 
