@@ -3,6 +3,7 @@ world/
 logs/
 crash-reports/
 backups/
+data/backups/
 mods/*.jar
 config/
 
@@ -21,8 +22,11 @@ Thumbs.db
 # Arquivos de configuração local
 *.local
 .env
-network-setup.md
-server.properties
+docs/network-setup.md
+configs/server.properties
+
+# Backup local (informações sensíveis)
+.local-backup/
 
 # Arquivos de backup
 *.tar.gz

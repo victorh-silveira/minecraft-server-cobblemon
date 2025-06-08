@@ -9,32 +9,35 @@ Um servidor Minecraft com o mod Cobblemon rodando em Docker, permitindo capturar
 - **Cobblemon**: 1.5.2+1.20.1
 - **Kotlin for Forge**: 4.11.0-all
 - **Memória**: 6GB RAM
-- **Porta**: 25566 (mapeada para 25565 interno)
+- **Porta**: 25565
 - **Mundo**: GLS-Pokemon
 - **Modo**: Survival
 - **Dificuldade**: Normal
 
 ## Início Rápido
 
-### Configuração inicial:
-1. **Configure arquivos básicos**:
-   ```bash
-   # Copiar arquivos de exemplo
-   cp network-setup.example.md network-setup.md
-   cp server.properties.example server.properties
-   
-   # Editar com suas informações
-   # - network-setup.md: configure seu IP e domínio
-   # - server.properties: ajuste configurações do servidor
-   ```
-
-2. **Ajuste configurações avançadas** (opcional):
-   - Modifique `docker-compose.yml` se precisar alterar portas ou memória
-
-### Primeira execução:
+### Configuração inicial (automática):
 ```bash
 make setup
 ```
+
+Este comando irá:
+- Verificar dependências (Docker/Docker Compose)
+- Criar estrutura de diretórios
+- Copiar arquivos de configuração
+- Construir imagem Docker
+- Preparar servidor para uso
+
+### Configuração manual (opcional):
+1. **Configure arquivos básicos**:
+   ```bash
+   # Editar configurações
+   # - docs/network-setup.md: configure seu IP e domínio
+   # - configs/server.properties: ajuste configurações do servidor
+   ```
+
+2. **Ajuste configurações avançadas**:
+   - Modifique `docker/docker-compose.yml` se precisar alterar portas ou memória
 
 ### Comandos básicos:
 ```bash
@@ -68,13 +71,13 @@ make status   # Ver status
 ### Para você (rede local):
 1. Abra o Minecraft 1.20.1 com Forge 47.3.0 instalado
 2. Instale os mods necessários (veja seção "Mods Necessários")
-3. Conecte-se ao servidor: `localhost:25566`
+3. Conecte-se ao servidor: `localhost:25565`
 
 ### Para seus amigos (internet):
 1. Eles precisam ter exatamente as mesmas versões dos mods
-2. Conectar em: **`seu-servidor.exemplo.com:25566`**
+2. Conectar em: **`noobz.ddns.net:25565`**
 
-  > **Configuração de rede**: Copie `network-setup.example.md` para `network-setup.md` e configure com suas informações
+  > **Configuração de rede**: Veja o arquivo `network-setup.md` para detalhes completos
 
 ## Mods Necessários para Jogar
 
@@ -117,7 +120,7 @@ make status   # Ver status
 ## Configurações
 
 ### Modificar configurações do servidor:
-Edite o arquivo `server.properties` e reinicie:
+Edite o arquivo `configs/server.properties` e reinicie:
 ```bash
 make restart
 ```
@@ -150,18 +153,32 @@ Os backups ficam salvos na pasta `backups/`
 
 ```
 minecraft-server-cobblemon/
-├── Dockerfile              # Imagem Docker
-├── docker-compose.yml      # Orquestração
+├── docker/                 # Arquivos Docker
+│   ├── Dockerfile          # Imagem Docker
+│   ├── docker-compose.yml  # Orquestração
+│   ├── .dockerignore       # Arquivos ignorados no build
+│   └── README.md           # Documentação Docker
+├── scripts/                # Scripts do projeto
+│   ├── start.sh            # Script de inicialização
+│   ├── setup.sh            # Script de configuração inicial
+│   └── README.md           # Documentação scripts
+├── docs/                   # Documentação
+│   ├── network-setup.md    # Configuração de rede
+│   ├── setup-rapido.md     # Guia rápido
+│   └── SECURITY.md         # Políticas de segurança
+├── configs/                # Configurações
+│   ├── server.properties   # Configurações do servidor
+│   ├── server.properties.example # Exemplo de configuração
+│   ├── eula.txt            # Acordo de licença
+│   └── README.md           # Documentação configurações
+├── data/                   # Dados do servidor
+│   └── backups/            # Backups do mundo
 ├── Makefile                # Comandos automatizados
-├── server.properties       # Configurações do servidor
-├── eula.txt                # Acordo de licença
-├── start.sh                # Script de inicialização
 ├── world/                  # Mundo do servidor
 ├── mods/                   # Mods instalados
 ├── config/                 # Configurações dos mods
 ├── logs/                   # Logs do servidor
-├── crash-reports/          # Relatórios de crash
-└── backups/                # Backups do mundo
+└── crash-reports/          # Relatórios de crash
 ```
 
 ## Solução de Problemas
@@ -213,7 +230,7 @@ make restore BACKUP=seu_backup.tar.gz
 - PvP está habilitado por padrão
 - Backups automáticos não estão configurados (use `make backup`)
 - **Mods obrigatórios**: Cobblemon 1.5.2+1.20.1 e Kotlin for Forge 4.11.0-all
-- Servidor roda na porta **25566** (não 25565)
+- Servidor roda na porta padrão **25565**
 - Compatível apenas com Minecraft 1.20.1 + Forge 47.3.0
 
 ## Links Diretos dos Mods

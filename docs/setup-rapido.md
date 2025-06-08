@@ -35,8 +35,8 @@ make status
 
 ### 5. Conectar ao Servidor
 - **Multiplayer** → **Add Server**
-- **Nome**: `Cobblemon Server`
-- **IP**: `seu-servidor.exemplo.com:25566`
+- **Nome**: `GLS-Pokemon`
+- **IP**: `noobz.ddns.net:25565`
 
 ---
 
@@ -48,4 +48,4 @@ make status
 
 ## Suporte
 - Leia o README.md completo
-- Verifique se o servidor está online: `seu-servidor.exemplo.com:25566` 
+- Verifique se o servidor está online: `noobz.ddns.net:25565` 

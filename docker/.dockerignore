@@ -1,0 +1,26 @@
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Documentação
+docs/
+*.md
+README*
+
+# Logs e dados temporários
+logs/
+crash-reports/
+data/
+
+# Arquivos de backup
+*.tar.gz
+*.zip
+
+# Arquivos de configuração local
+docs/network-setup.md
+
+# Cache e temporários
+.cache/
+tmp/
+temp/ 

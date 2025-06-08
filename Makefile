@@ -2,9 +2,9 @@
 
 # Variáveis
 CONTAINER_NAME = minecraft-cobblemon-server
-BACKUP_DIR = backups
+BACKUP_DIR = data/backups
 TIMESTAMP = $(shell date +%Y%m%d_%H%M%S)
-DDNS_HOST = seu-servidor.exemplo.com
+DDNS_HOST = seu-servidor.ddns.net
 SERVER_PORT = 25565
 
 # Comando padrão
@@ -15,32 +15,32 @@ help: ## Mostra esta mensagem de ajuda
 
 build: ## Constrói a imagem Docker
 	@echo "Construindo imagem Docker..."
-	docker-compose build --no-cache
+	cd docker && docker-compose build --no-cache
 
 build-run: ## Constrói a imagem e inicia o servidor
 	@echo "Construindo imagem Docker (build limpo)..."
-	docker-compose build --no-cache --pull
+	cd docker && docker-compose build --no-cache --pull
 	@echo "Iniciando servidor Minecraft Cobblemon..."
-	docker-compose up -d
+	cd docker && docker-compose up -d
 	@echo "Servidor buildado e iniciado! Acesse em localhost:25565"
 	@echo "Amigos podem acessar em: $(DDNS_HOST):$(SERVER_PORT)"
 
 start: ## Inicia o servidor
 	@echo "Iniciando servidor Minecraft Cobblemon..."
-	docker-compose up -d
+	cd docker && docker-compose up -d
 	@echo "Servidor iniciado! Acesse em localhost:25565"
 	@echo "Amigos podem acessar em: $(DDNS_HOST):$(SERVER_PORT)"
 
 stop: ## Para o servidor
 	@echo "Parando servidor..."
-	docker-compose down
+	cd docker && docker-compose down
 	@echo "Servidor parado!"
 
 restart: stop start ## Reinicia o servidor
 
 logs: ## Mostra os logs do servidor
 	@echo "Logs do servidor:"
-	docker-compose logs -f
+	cd docker && docker-compose logs -f
 
 shell: ## Acessa o shell do container
 	@echo "Acessando shell do container..."
@@ -48,11 +48,11 @@ shell: ## Acessa o shell do container
 
 status: ## Mostra o status do servidor
 	@echo "Status do servidor:"
-	docker-compose ps
+	cd docker && docker-compose ps
 
 clean: ## Remove containers e imagens
 	@echo "Limpando containers e imagens..."
-	docker-compose down --rmi all --volumes --remove-orphans
+	cd docker && docker-compose down --rmi all --volumes --remove-orphans
 	@echo "Limpeza concluída!"
 
 backup: ## Cria backup do mundo
@@ -80,19 +80,9 @@ restore: ## Restaura backup do mundo (uso: make restore BACKUP=nome_do_arquivo)
 	fi
 
 setup: ## Configuração inicial (primeira execução)
-	@echo "Configuração inicial..."
-	@mkdir -p world config logs crash-reports mods backups
-	@echo "Diretórios criados!"
-	@echo "Construindo imagem..."
-	@make build
-	@echo "Iniciando servidor pela primeira vez..."
-	@make start
-	@echo ""
-	@echo "Servidor configurado e iniciado!"
-	@echo "Acesso local: localhost:25565"
-	@echo "Acesso externo: $(DDNS_HOST):$(SERVER_PORT)"
-	@echo "Para ver logs: make logs"
-	@echo "Para testar rede: make network-test"
+	@echo "Executando script de setup..."
+	@chmod +x scripts/setup.sh
+	@./scripts/setup.sh
 
 update: ## Atualiza e reinicia o servidor
 	@echo "Atualizando servidor..."
@@ -114,7 +104,7 @@ network-test: ## Testa conectividade de rede
 	@ping -c 4 $(DDNS_HOST) || echo "Erro no ping"
 	@echo ""
 	@echo "Verificando se o servidor está rodando localmente:"
-	@docker-compose ps | grep $(CONTAINER_NAME) || echo "Container não está rodando"
+	@cd docker && docker-compose ps | grep $(CONTAINER_NAME) || echo "Container não está rodando"
 	@echo ""
 	@echo "Para testar porta externamente, acesse:"
 	@echo "   https://www.yougetsignal.com/tools/open-ports/"

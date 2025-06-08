@@ -43,8 +43,8 @@ RUN ls -la mods/ && \
 RUN mkdir -p world config logs crash-reports
 
 # Copiar arquivos de configuração
-COPY server.properties* ./
-COPY eula.txt .
+COPY configs/server.properties* ./
+COPY configs/eula.txt .
 
 # Usar server.properties se existir, senão usar o exemplo
 RUN if [ ! -f server.properties ]; then cp server.properties.example server.properties; fi
@@ -56,7 +56,7 @@ RUN echo "eula=true" > eula.txt
 EXPOSE 25565
 
 # Script de inicialização
-COPY start.sh .
+COPY scripts/start.sh .
 RUN chmod +x start.sh
 
 CMD ["./start.sh"] 
