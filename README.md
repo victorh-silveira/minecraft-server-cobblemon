@@ -1,4 +1,4 @@
-# Servidor Minecraft Cobblemon - GLS-Pokemon
+# Servidor Minecraft Cobblemon
 
 Um servidor Minecraft com o mod Cobblemon rodando em Docker, permitindo capturar e treinar Pokémon no mundo do Minecraft!
 
@@ -10,7 +10,7 @@ Um servidor Minecraft com o mod Cobblemon rodando em Docker, permitindo capturar
 - **Kotlin for Forge**: 4.11.0-all
 - **Memória**: 6GB RAM
 - **Porta**: 25565
-- **Mundo**: GLS-Pokemon
+- **Mundo**: 
 - **Modo**: Survival
 - **Dificuldade**: Normal
 
